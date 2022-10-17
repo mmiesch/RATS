@@ -51,7 +51,9 @@ for i in np.arange(2,Ni-2,2):
         e1 = np.sqrt(l2_i[i-1]*l2_i[i])
         e2 = np.sqrt(l2_i[i+1]*l2_i[i+2])
         l3_i[idx] = np.sqrt(e1*e2)
-        #print(f"{idx} {e1} {l3_i[idx]} {e2}")
+        mm = l2_i[i-1]*l2_i[i]*l2_i[i+1]*l2_i[i+2]
+        mcheck = np.power(mm, 0.25)
+        print(f"{idx} {e1} {l3_i[idx]} {mcheck} {e2}")
         idx += 1
 
 l3_i[-1] = l2_i[-1]

@@ -34,7 +34,7 @@ b = logi[i] - m * i
 yy = np.exp(m*x + b)
 
 #------------------------------------------------------------------------------
-# Now rebin
+# Rebin ions
 
 # assume the L2 ion bin number is odd, and keep the last bin intact
 
@@ -58,12 +58,41 @@ l3_i[-1] = l2_i[-1]
 
 for e in l3_i:
         print(e)
+#------------------------------------------------------------------------------
+# Rebin electrons
+
+# assume the L2 ion bin number is even
+
+Me = int((Ne-1)/2)
+print(f"Me = {Me}")
+
+l3_e = np.zeros(Me)
+e1 = np.sqrt(l2_e[0]**3/l2_e[1])
+e2 = np.sqrt(l2_e[1]*l2_e[2])
+l3_e[0] = np.sqrt(e1*e2)
+
+idx = 1
+for i in np.arange(2,Ne-2,2):
+        e1 = np.sqrt(l2_e[i-1]*l2_e[i])
+        e2 = np.sqrt(l2_e[i+1]*l2_e[i+2])
+        l3_e[idx] = np.sqrt(e1*e2)
+        #print(f"{idx} {e1} {l3_e[idx]} {e2}")
+        idx += 1
+
+l3_i[-1] = l2_i[-1]
+
+print(80*'-')
+for e in l3_e:
+        print(e)
 
 #------------------------------------------------------------------------------
 # p = L3 bins
 
 plogi = np.log(l3_i)
 pdi = plogi[1:] - plogi[0:-1]
+
+ploge = np.log(l3_e)
+pde = ploge[1:] - ploge[0:-1]
 
 #------------------------------------------------------------------------------
 # constant log bins for comparison
@@ -76,26 +105,51 @@ py = np.exp(m*px + b)
 
 #------------------------------------------------------------------------------
 
+ions = False
+
 fig = plt.figure(figsize=(16,8))
 
-ax1 = fig.add_subplot(2, 2, 1)
-ax1.set_yscale('log')
-ax1.plot(l2_i)
-ax1.plot(l2_i, 'o')
-ax1.plot(yy)
+if ions:
 
-ax2 = fig.add_subplot(2, 2, 2)
-ax2.plot(di)
-ax2.plot(di, 'o')
+    ax1 = fig.add_subplot(2, 2, 1)
+    ax1.set_yscale('log')
+    ax1.plot(l2_i)
+    ax1.plot(l2_i, 'o')
+    ax1.plot(yy)
 
-ax3 = fig.add_subplot(2, 2, 3)
-ax3.set_yscale('log')
-ax3.plot(l3_i)
-ax3.plot(l3_i, 'o')
-ax3.plot(py)
+    ax2 = fig.add_subplot(2, 2, 2)
+    ax2.plot(di)
+    ax2.plot(di, 'o')
 
-ax4 = fig.add_subplot(2, 2, 4)
-ax4.plot(pdi)
-ax4.plot(pdi, 'o')
+    ax3 = fig.add_subplot(2, 2, 3)
+    ax3.set_yscale('log')
+    ax3.plot(l3_i)
+    ax3.plot(l3_i, 'o')
+    ax3.plot(py)
+
+    ax4 = fig.add_subplot(2, 2, 4)
+    ax4.plot(pdi)
+    ax4.plot(pdi, 'o')
+
+else:
+
+    ax1 = fig.add_subplot(2, 2, 1)
+    ax1.set_yscale('log')
+    ax1.plot(l2_e)
+    ax1.plot(l2_e, 'o')
+
+    ax2 = fig.add_subplot(2, 2, 2)
+    ax2.plot(de)
+    ax2.plot(de, 'o')
+
+    ax3 = fig.add_subplot(2, 2, 3)
+    ax3.set_yscale('log')
+    ax3.plot(l3_e)
+    ax3.plot(l3_e, 'o')
+
+    ax4 = fig.add_subplot(2, 2, 4)
+    ax4.plot(pde)
+    ax4.plot(pde, 'o')
+
 
 plt.show()

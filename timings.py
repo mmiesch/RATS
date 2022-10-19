@@ -22,6 +22,11 @@ elif sam == 3:
     file2 = 'DSCOVR_MAG_480-960_172800.csv'
     ns = 172800
     nw = 480
+elif sam == 4:
+    file1 = 'DSCOVR_MAG_30-30_4317541.csv'
+    file2 = 'DSCOVR_MAG_30-60_4317541.csv'
+    ns = 172800
+    nw = 30
 
 
 # na is the length of the averaged variable

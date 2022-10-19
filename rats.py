@@ -69,7 +69,7 @@ file = dir+'oe_mg1_dscovr_s20220205000000_e20220205235959_p20220206013755_pub.nc
 #-----------------------------------------------------------------------------
 #  get a data segment to work with
 
-sam = 9
+sam = 2
 
 # default titles - change only if desired
 xtitle = 'time (arbitrary units)'
@@ -92,9 +92,9 @@ elif sam == 2:
     i1 = 0
     i2 = -1
     doplot = False
-    nw = 4
+    nw = 480
 elif sam == 3:
-    # For playing around 
+    # For playing around
     label="DSCOVR_MAG"
     i1 = 2000
     i2 = i1 + 300
@@ -144,6 +144,13 @@ elif sam == 9:
     kk = 10
     nw = 480
     doplot = False
+elif sam == 10:
+    # full range of data: good for efficiency runs
+    label="DSCOVR_MAG"
+    i1 = 0
+    i2 = -1
+    doplot = False
+    nw = 30
 else:
     i1 = 2000; i2 = i1 + 200 # sam1
 

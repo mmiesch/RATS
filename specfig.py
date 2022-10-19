@@ -15,9 +15,9 @@ x1 = np.array([20.4, 22.0, 24.4, 27.6, 30.8, 34.0, 38.8, 45.2, 51.6, 58.0, \
 
 Ni = len(x1)
 
-ee = - 1.5
+ee = - 2.0
 
-y1 = 1.e6 * np.power(x1,ee)
+y1 = 4.e7 * np.power(x1,ee)
 
 #------------------------------------------------------------------------------
 # Rebin ions
@@ -46,6 +46,15 @@ y2[-1] = y1[-1]
 for i in np.arange(Mi):
     print(f"{x2[i]} {y2[i]}")
 
+logx2 = np.log2(x2)
+d2 = logx2[1:] - logx2[0:-1]
+
+logx1 = np.log2(x1)
+d1 = logx1[1:] - logx1[0:-1]
+
+for d in d2:
+    print(f"diff = {d}")
+
 #------------------------------------------------------------------------------
 
 y1min = y1 - np.sqrt(y1)
@@ -58,24 +67,43 @@ y2max = y2 + np.sqrt(y2)
 # scale factor
 fac = 0.5
 
-fig = plt.figure(figsize=(16,8))
+fig = plt.figure(figsize=(16,6))
 
-ax1 = fig.add_subplot(1, 1, 1)
+ax1 = fig.add_subplot(1, 2, 1)
 ax1.set_xscale('log')
 ax1.set_yscale('log')
-ax1.plot(x1,y1)
-ax1.plot(x1,y1,'o')
-#ax1.plot(x2, fac*y2, 'o')
-ax1.plot(x2, y2)
-ax1.plot(x2, y2,'o')
+ax1.plot(x1[:-1], y1[:-1], color ='r')
+ax1.plot(x1[:-1], y1[:-1],'o', color = 'r')
+ax1.plot(x2[:-1], y2[:-1], color = 'b')
+ax1.plot(x2[:-1], y2[:-1],'o', color = 'b')
 
-plt.fill_between(x1,y1min,y1max,color='lightsteelblue')
-plt.fill_between(x2,y2min,y2max,color='bisque')
+ax1.set_ylim((0.1,1.e6))
+ax1.set_ylabel('Counts')
+ax1.set_xlabel('Energy (eV)')
 
-yy = [1.0,1.e5]
+plt.fill_between(x1[:-1],y1min[:-1],y1max[:-1],color='lightsalmon')
+plt.fill_between(x2[:-1],y2min[:-1],y2max[:-1],color='lightsteelblue')
+
+yy = [0.1,1.e6]
 
 for i in np.arange(1,Ni-1,2):
         ed = np.sqrt(x1[i]*x1[i+1]) * np.array((1.0,1.0))
-        ax1.plot(ed,yy,color='b')
+        ax1.plot(ed,yy,color='darkgray')
+
+ax2 = fig.add_subplot(1,2,2)
+ax2.set_xscale('log')
+ax2.plot(x1[1:-1],d1[:-1], color = 'r')
+ax2.plot(x1[1:-1],d1[:-1],'o', color = 'r')
+ax2.plot(x2[1:-1],d2[:-1], color = 'b')
+ax2.plot(x2[1:-1],d2[:-1],'o', color = 'b')
+
+ax2.set_xlim((10,8000))
+ax2.plot((1,1.e4),(.5,.5), color='darkgray')
+
+ax2.set_ylabel('log2(bin size)')
+ax2.set_xlabel('Energy (eV)')
+
+plt.tight_layout()
 
 plt.show()
+

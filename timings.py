@@ -5,7 +5,7 @@ Code to summarize the timings for writing the ATBD
 import numpy as np
 import pandas as pd
 
-sam = 3
+sam = 1
 
 if sam == 1:
     file1 = 'DSCOVR_MAG_4_4317541.csv'

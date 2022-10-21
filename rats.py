@@ -92,7 +92,7 @@ elif sam == 2:
     i1 = 0
     i2 = -1
     doplot = False
-    nw = 480
+    nw = 4
 elif sam == 3:
     # For playing around
     label="DSCOVR_MAG"

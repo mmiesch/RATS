@@ -92,7 +92,8 @@ elif sam == 2:
     i1 = 0
     i2 = -1
     doplot = False
-    nw = 4
+    nw = 480
+    nb = 960
 elif sam == 3:
     # For playing around
     label="DSCOVR_MAG"
@@ -198,7 +199,7 @@ ns = np.int64(len(time))
 
 # nb is the size if the averaging window
 # nov is the overlap with neighboring bins
-nb = 2*nw
+#nb = 2*nw
 #nb = nw
 nov = int((nb - nw)/2)
 

@@ -5,28 +5,29 @@ Code to summarize the timings for writing the ATBD
 import numpy as np
 import pandas as pd
 
-sam = 1
+sam = 4
 
 if sam == 1:
-    file1 = 'DSCOVR_MAG_4_4317541.csv'
+    file1 = 'DSCOVR_MAG_4-4_4317541.csv'
     file2 = 'DSCOVR_MAG_4-8_4317541.csv'
     ns = 4317541
     nw = 4
 elif sam == 2:
-    file1 = 'DSCOVR_MAG_8_4317541.csv'
+    file1 = 'DSCOVR_MAG_8-8_4317541.csv'
     file2 = 'DSCOVR_MAG_8-16_4317541.csv'
     ns = 4317541
     nw = 8
 elif sam == 3:
-    file1 = 'DSCOVR_MAG_480_172800.csv'
-    file2 = 'DSCOVR_MAG_480-960_172800.csv'
-    ns = 172800
-    nw = 480
-elif sam == 4:
     file1 = 'DSCOVR_MAG_30-30_4317541.csv'
     file2 = 'DSCOVR_MAG_30-60_4317541.csv'
-    ns = 172800
+    ns = 4317541
     nw = 30
+elif sam == 4:
+    file1 = 'DSCOVR_MAG_480-480_4317541.csv'
+    file2 = 'DSCOVR_MAG_480-960_4317541.csv'
+    ns = 172800
+    nw = 480
+
 
 
 # na is the length of the averaged variable

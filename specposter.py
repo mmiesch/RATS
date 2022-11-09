@@ -50,7 +50,7 @@ l3e = np.array(l3e)
 
 #------------------------------------------------------------------------------
 
-fig = plt.figure(figsize=(30,4))
+fig = plt.figure(figsize=(30,8))
 
 # spectrum
 
@@ -63,14 +63,16 @@ x2 = l3i[-1]**2/l3i[-2]
 
 xrange = (x1,x2)
 
-ax = fig.add_subplot(1,1,1)
+ax = fig.add_subplot(2,1,1)
 plt.plot(xrange,(1.0,1.0),color='black',linewidth=4)
 
 plt.xticks(fontsize=32)
 
+ax.set_title("Ion Energy Binning",fontsize=40)
+
 ax.set_xlim(xrange)
 ax.set_xscale('log')
-ax.set_xticks([20,100,1000,6000])
+ax.set_xticks([25,100,1000,6000])
 ax.set_xticklabels(['25 keV/n','100 keV/n','1 MeV/n','6 MeV/n'])
 
 ax.set_ylim((0,2))
@@ -97,6 +99,49 @@ yy = np.array((0,1))
 for e in l3i:
    plt.plot(e*xx,yy,color='black',linewidth=4)
 
+#---------------------------------------------------------------------
+
+x1 = l3e[0]**2/l3e[1]
+x2 = l3e[-1]**2/l3e[-2]
+
+xrange = (x1,x2)
+
+ax2 = fig.add_subplot(2,1,2)
+plt.plot(xrange,(1.0,1.0),color='black',linewidth=4)
+
+plt.xticks(fontsize=32)
+
+ax2.set_title("Electron Energy Binning",fontsize=40)
+
+ax2.set_xlim(xrange)
+ax2.set_xscale('log')
+ax2.set_xticks([25,100,300])
+ax2.set_xticklabels(['25 keV','100 keV','300 keV'])
+
+ax2.set_ylim((0,2))
+ax2.set(ylabel=None)
+ax2.set_yticklabels([''])
+
+plt.fill_between((x1,epame[0]),(1,1),(2,2))
+for i in np.arange(1,len(epame)):
+    plt.fill_between((epame[i-1],epame[i]),(1,1),(2,2))
+plt.fill_between((epame[-1],x2),(1,1),(2,2))
+
+plt.fill_between((x1,l3e[0]),(0,0),(1,1))
+for i in np.arange(1,len(l3e)):
+    plt.fill_between((l3e[i-1],l3e[i]),(0,0),(1,1))
+plt.fill_between((l3e[-1],x2),(0,0),(1,1))
+
+yy = np.array((1,2))
+xx = np.array((1.0,1.0))
+for e in epame:
+   plt.plot(e*xx,yy,color='black',linewidth=4)
+
+yy = np.array((0,1))
+for e in l3e:
+   plt.plot(e*xx,yy,color='black',linewidth=4)
+
+#---------------------------------------------------------------------
 
 plt.tight_layout()
 
